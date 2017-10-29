@@ -1,0 +1,27 @@
+{
+  "name": "little-john",
+  "version": "0.1.0",
+  "description": "Little John",
+  "author": "Derek Nordgren",
+  "scripts": {
+    "start": "node lib/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnordgren/LittleJohn.git"
+  },
+  "keywords": [
+    "graphql"
+  ],
+  "bugs": {
+    "url": "https://github.com/dnordgren/LittleJohn/issues"
+  },
+  "homepage": "https://github.com/dnordgren/LittleJohn#readme",
+  "dependencies": {
+    "mongodb": "^2.2.33",
+    "pg": "^7.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
