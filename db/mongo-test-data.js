@@ -1,12 +1,10 @@
 const { MongoClient } = require('mongodb');
 const assert = require('assert');
-const mongoConfig = require('../config/mongo')[
-  process.env.NODE_ENV || 'development'
-];
+const { nodeEnv } = require('../lib/util');
+const mongoConfig = require('../config/mongo')[nodeEnv];
 
 MongoClient.connect(mongoConfig.url, (err, db) => {
   assert.equal(null, err);
-
   db
     .collection('lots')
     .insertMany([
