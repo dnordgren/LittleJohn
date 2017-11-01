@@ -7,6 +7,8 @@ const {
 } = require('graphql');
 
 const pgdb = require('../../db/pgdb');
+const mongodb = require('../../db/mongodb');
+
 const WatchlistType = require('./watchlist');
 
 module.exports = new GraphQLObjectType({
@@ -23,5 +25,6 @@ module.exports = new GraphQLObjectType({
         return pgdb(pgPool).getWatchlists(obj);
       },
     },
+    lots: {},
   },
 });
