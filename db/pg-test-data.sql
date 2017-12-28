@@ -18,7 +18,7 @@ create table lists (
   portfolio_type varchar(30) not null default 'investment'
     check (portfolio_type in ('investment', 'speculative', 'cryptocurrency', 'mixed')),
   created_at timestamp not null default current_timestamp,
-  created_by integer references users not null
+  owner_id integer references users not null
 );
 
 create table securities (
@@ -37,7 +37,7 @@ INSERT INTO "users" ("email","first_name","last_name","api_key")
 VALUES
 (E'derek.nordgren@protonmail.com',E'Derek',E'Nordgren',E'1234');
 
-INSERT INTO "lists" ("title","description","portfolio_type","created_by")
+INSERT INTO "lists" ("title","description","portfolio_type","owner_id")
 VALUES
 (E'Robinhood',E'Securities in Robinhood portfolio',E'mixed',1),
 (E'401k',E'Securities in 401k',E'investment',1);

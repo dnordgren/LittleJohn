@@ -5,6 +5,7 @@ const {
   GraphQLString,
 } = require('graphql');
 
+const UserType = require('./user');
 const WatchlistPortfolioType = require('./watchlistPortfolio');
 
 module.exports = new GraphQLObjectType({
@@ -15,6 +16,6 @@ module.exports = new GraphQLObjectType({
     description: { type: GraphQLString },
     portfolioType: { type: new GraphQLNonNull(WatchlistPortfolioType) },
     createdAt: { type: GraphQLString },
-    createdBy: { type: new GraphQLNonNull(GraphQLString) },
+    owner: { type: new GraphQLNonNull(UserType) }, // TODO
   },
 });

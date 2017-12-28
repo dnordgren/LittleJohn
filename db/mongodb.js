@@ -3,7 +3,7 @@ module.exports = mongoPool => {
     getLots(user) {
       return mongoPool
         .collection('lots')
-        .find({ userId: user.id })
+        .find({ ownerId: user.id })
         .toArray()
         .then(lots => lots);
     },

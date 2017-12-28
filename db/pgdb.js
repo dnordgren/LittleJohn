@@ -18,7 +18,7 @@ module.exports = pgPool => {
         .query(
         `
         SELECT * FROM lists
-        WHERE created_by = $1
+        WHERE owner_id = $1
       `,
         [user.id]
         )

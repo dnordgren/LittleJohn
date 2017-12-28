@@ -9,7 +9,7 @@ MongoClient.connect(mongoConfig.url, (err, db) => {
     .collection('lots')
     .insertMany([
       {
-        userId: 1,
+        ownerId: 1,
         symbol: 'MMM',
         costBasis: 200.00,
         shares: 10,
@@ -17,7 +17,7 @@ MongoClient.connect(mongoConfig.url, (err, db) => {
         memo: 'predicting strong earnings',
       },
       {
-        userId: 1,
+        ownerId: 1,
         symbol: 'MMM',
         costBasis: 210.00,
         shares: 5,
