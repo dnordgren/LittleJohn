@@ -6,17 +6,25 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const UserType = require('./user');
+const pgdb = require('../../db/pgdb');
 
 module.exports = new GraphQLObjectType({
   name: 'LotType',
-  fields: {
-    id: { type: GraphQLID },
-    owner: { type: new GraphQLNonNull(UserType) }, // TODO
-    symbol: { type: new GraphQLNonNull(GraphQLString) },
-    costBasis: { type: GraphQLFloat },
-    shares: { type: GraphQLFloat },
-    tradeDate: { type: GraphQLString },
-    memo: { type: GraphQLString },
+  fields: () => {
+    const UserType = require('./user');
+    return {
+      id: { type: GraphQLID },
+      owner: {
+        type: new GraphQLNonNull(UserType),
+        resolve(obj, args, { pgPool } ) {
+          return pgdb(pgPool).getUserById(obj.ownerId);
+        },
+      },
+      symbol: { type: new GraphQLNonNull(GraphQLString) },
+      costBasis: { type: GraphQLFloat },
+      shares: { type: GraphQLFloat },
+      tradeDate: { type: GraphQLString },
+      memo: { type: GraphQLString },
+    };
   },
 });
