@@ -15,5 +15,6 @@ module.exports = new GraphQLObjectType({
     description: { type: GraphQLString },
     portfolioType: { type: new GraphQLNonNull(WatchlistPortfolioType) },
     createdAt: { type: GraphQLString },
+    createdBy: { type: new GraphQLNonNull(GraphQLString) },
   },
 });
