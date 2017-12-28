@@ -10,6 +10,7 @@ const pgdb = require('../../db/pgdb');
 const mongodb = require('../../db/mongodb');
 
 const WatchlistType = require('./watchlist');
+const LotType = require('./lot');
 
 module.exports = new GraphQLObjectType({
   name: 'UserType',
@@ -25,6 +26,11 @@ module.exports = new GraphQLObjectType({
         return pgdb(pgPool).getWatchlists(obj);
       },
     },
-    lots: {},
+    lots: {
+      type: new GraphQLList(LotType),
+      resolve(obj, args, { mongoPool }) {
+        return mongodb(mongoPool).getLots(obj);
+      },
+    },
   },
 });
