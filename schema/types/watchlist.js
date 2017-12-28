@@ -5,7 +5,6 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const pgdb = require('../../db/pgdb');
 const WatchlistPortfolioType = require('./watchlistPortfolio');
 
 module.exports = new GraphQLObjectType({
@@ -20,8 +19,8 @@ module.exports = new GraphQLObjectType({
       createdAt: { type: GraphQLString },
       owner: {
         type: new GraphQLNonNull(UserType),
-        resolve(obj, args, { pgPool } ) {
-          return pgdb(pgPool).getUserById(obj.ownerId);
+        resolve(obj, args, { loaders } ) {
+          return loaders.usersByIds.load(obj.ownerId);
         },
       },
     };

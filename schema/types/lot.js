@@ -6,8 +6,6 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const pgdb = require('../../db/pgdb');
-
 module.exports = new GraphQLObjectType({
   name: 'LotType',
   fields: () => {
@@ -16,8 +14,8 @@ module.exports = new GraphQLObjectType({
       id: { type: GraphQLID },
       owner: {
         type: new GraphQLNonNull(UserType),
-        resolve(obj, args, { pgPool } ) {
-          return pgdb(pgPool).getUserById(obj.ownerId);
+        resolve(obj, args, { loaders } ) {
+          return loaders.usersByIds.load(obj.ownerId);
         },
       },
       symbol: { type: new GraphQLNonNull(GraphQLString) },
