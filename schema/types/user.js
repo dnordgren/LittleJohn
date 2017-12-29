@@ -6,7 +6,6 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const pgdb = require('../../db/pgdb');
 const mongodb = require('../../db/mongodb');
 
 const WatchlistType = require('./watchlist');
@@ -22,8 +21,8 @@ module.exports = new GraphQLObjectType({
     createdAt: { type: GraphQLString },
     watchlists: {
       type: new GraphQLList(WatchlistType),
-      resolve(obj, args, { pgPool }) {
-        return pgdb(pgPool).getWatchlists(obj);
+      resolve(obj, args, { loaders }) {
+        return loaders.watchlistsForUserIds.load(obj.id);
       },
     },
     lots: {

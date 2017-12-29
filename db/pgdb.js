@@ -3,7 +3,7 @@ const _ = require('lodash');
 
 module.exports = pgPool => {
   // TODO move to util class, add tests
-  const orderedFor = (rows, collection, field) => {
+  const orderedFor = (rows, collection, field, isSingleObject) => {
     const normalizedRows = humps.camelizeKeys(rows);
 
     // build a dictionary of field : values of field from each row to yield constant-time search
@@ -12,12 +12,15 @@ module.exports = pgPool => {
     // return the rows ordered for the collection to satisfy dataloader
     return collection.map(element => {
       const elementArray = inGroupsByField[element];
-      return !!elementArray ? elementArray[0] : {};
+      if (!elementArray) {
+        return isSingleObject ? {} : [];
+      }
+      return isSingleObject ? elementArray[0] : elementArray;
     });
   };
 
   return {
-    getUsersByIds(userIds) {
+    getUsersByUserIds(userIds) {
       return pgPool
         .query(
           `
@@ -26,7 +29,7 @@ module.exports = pgPool => {
           `,
           [userIds]
         )
-        .then(res => orderedFor(res.rows, userIds, 'id'));
+        .then(res => orderedFor(res.rows, userIds, 'id', true));
     },
     getUsersByApiKeys(apiKeys) {
       return pgPool
@@ -37,18 +40,18 @@ module.exports = pgPool => {
           `,
           [apiKeys]
         )
-        .then(res => orderedFor(res.rows, apiKeys, 'apiKey'));
+        .then(res => orderedFor(res.rows, apiKeys, 'apiKey', true));
     },
-    getWatchlists(user) {
+    getWatchlistsForUserIds(userIds) {
       return pgPool
         .query(
           `
             SELECT * FROM lists
-            WHERE owner_id = $1
+            WHERE owner_id = ANY($1)
           `,
-          [user.id]
+          [userIds]
         )
-        .then(res => humps.camelizeKeys(res.rows));
+        .then(res => orderedFor(res.rows, userIds, 'ownerId', false));
     },
   };
 };
