@@ -6,8 +6,6 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const mongodb = require('../../db/mongodb');
-
 const WatchlistType = require('./watchlist');
 const LotType = require('./lot');
 
@@ -27,8 +25,8 @@ module.exports = new GraphQLObjectType({
     },
     lots: {
       type: new GraphQLList(LotType),
-      resolve(obj, args, { mongoPool }) {
-        return mongodb(mongoPool).getLots(obj);
+      resolve(obj, args, { loaders }) {
+        return loaders.lotsForUserIds.load(obj.id);
       },
     },
   },
