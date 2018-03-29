@@ -30,6 +30,10 @@
     "pg": "^7.3.0"
   },
   "devDependencies": {
+    "@types/graphql": "^0.12.7",
+    "@types/humps": "^1.1.2",
+    "@types/lodash": "^4.14.106",
+    "@types/node": "^9.6.1",
     "nodemon": "^1.12.1"
   }
 }
