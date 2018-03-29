@@ -1,20 +1,32 @@
-const {
+import {
   GraphQLFloat,
   GraphQLID,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
-} = require('graphql');
+} from "graphql";
 
-module.exports = new GraphQLObjectType({
-  name: 'LotType',
+import { IUser } from "./user";
+
+export interface ILot {
+  id: string;
+  owner: IUser;
+  symbol: string;
+  costBasis: number;
+  shares: number;
+  tradeDate: string;
+  memo: string;
+}
+
+export default new GraphQLObjectType({
+  name: "LotType",
   fields: () => {
-    const UserType = require('./user');
+    const UserType: GraphQLObjectType = require("./user");
     return {
       id: { type: GraphQLID },
       owner: {
         type: new GraphQLNonNull(UserType),
-        resolve(obj, args, { loaders } ) {
+        resolve(obj: any, args: Array<string>, { loaders }: { loaders: any } ): any {
           return loaders.usersByIds.load(obj.ownerId);
         },
       },

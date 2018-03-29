@@ -1,19 +1,19 @@
-const {
+import {
   GraphQLSchema,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
-} = require('graphql');
+} from "graphql";
 
-const UserType = require('./types/user');
+const UserType: GraphQLObjectType = require("./types/user");
 
-const RootQueryType = new GraphQLObjectType({
-  name: 'RootQueryType',
+const RootQueryType: GraphQLObjectType = new GraphQLObjectType({
+  name: "RootQueryType",
   fields: () => {
     return {
       user: {
         type: UserType,
-        description: '', // TODO
+        description: "", // todo
         args: {
           apiKey: { type: new GraphQLNonNull(GraphQLString) },
         },
@@ -25,8 +25,8 @@ const RootQueryType = new GraphQLObjectType({
   },
 });
 
-const ljSchema = new GraphQLSchema({
+const ljSchema: GraphQLSchema = new GraphQLSchema({
   query: RootQueryType,
 });
 
-module.exports = ljSchema;
+export default ljSchema;
