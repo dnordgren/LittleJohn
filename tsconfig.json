@@ -1,12 +1,12 @@
 {
   "include": [
-    "src/**/*"
+    "src/server/**/*"
   ],
   "exclude": [
     "node_modules"
   ],
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "dist/server",
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "commonjs",

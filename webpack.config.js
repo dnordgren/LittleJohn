@@ -2,7 +2,7 @@ module.exports = {
   entry: "./src/ui/index.tsx",
   output: {
       filename: "bundle.js",
-      path: __dirname + "/dist"
+      path: __dirname + "/dist/ui"
   },
 
   // Need to pass webpack --mode=production to trigger production builds once this is deployed.
