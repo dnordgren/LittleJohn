@@ -1,15 +1,11 @@
-export interface IPostgresConfig {
-  user: string;
-  host: string;
-  password: string;
-  port: string;
-  database: string;
-}
+import { PoolConfig } from "pg";
 
-export const development: IPostgresConfig = {
+const port: number = parseInt(process.env.PGPORT, 10) || 0;
+
+export const development: PoolConfig = {
   user: process.env.PGUSER,
   host: process.env.PGHOST,
   password: process.env.PGPASSWORD,
-  port: process.env.PGPORT,
+  port,
   database: "watchlists",
 };
