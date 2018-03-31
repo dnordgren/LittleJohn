@@ -5,15 +5,15 @@
   "author": "Derek Nordgren",
   "scripts": {
     "start": "node lib/index",
-    "dev": "node ./node_modules/nodemon/bin/nodemon.js --exec node lib/index.js"
+    "dev":
+      "node ./node_modules/nodemon/bin/nodemon.js --exec node lib/index.js",
+    "precommit": "pretty-quick --staged"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dnordgren/LittleJohn.git"
   },
-  "keywords": [
-    "graphql"
-  ],
+  "keywords": ["graphql"],
   "bugs": {
     "url": "https://github.com/dnordgren/LittleJohn/issues"
   },
@@ -43,10 +43,19 @@
     "@types/node": "^9.6.1",
     "@types/pg": "^7.4.5",
     "awesome-typescript-loader": "^4.0.1",
+    "husky": "^0.14.3",
     "nodemon": "^1.12.1",
+    "prettier": "1.11.1",
+    "pretty-quick": "^1.4.1",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.8.1",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": false,
+    "trailingComma": "all",
+    "arrowParens": "always"
   }
 }
